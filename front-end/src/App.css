@@ -1,47 +1,129 @@
-#board {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
-  padding: 10px
-}
-
-.cell {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  height: 25vmin;
-  text-align: center;
-}
-
-#bottombar {
-  height: 5vh;
-}
-
-#instructions {
-  height: 5vh;
-  background-color: white;
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  border: 1px solid black;
-}
-
-#bottombar button {
-  width: 50%;
-  /* height: 100%; */
+/* Reset default browser styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  position: relative;
-  float: left;
-  font-size: 2vw
 }
 
 html,
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  background-color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.playable { background-color: red;}
+/* Container to center content vertically */
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Center the game board */
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px; /* Space between cells */
+  background-color: #333;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+/* Styling for each cell */
+.cell {
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 8px; /* Apply border-radius to the base state */
+  font-size: 5vw;
+  width: 15vw;
+  height: 15vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Playable cell hover effect */
+.cell.playable:hover {
+  border-color: #55befa;
+  background-color: #e3f2fd;
+  box-shadow: 0 0 10px rgba(85, 190, 250, 0.5);
+}
+
+/* Non-playable cells */
+.cell:not(.playable) {
+  cursor: default;
+}
+
+/* Winning cells */
+.cell.winner {
+  background-color: #ffe082; /* Soft yellow background */
+  animation: winner-pulse 1s infinite;
+}
+
+/* Winning cells animation */
+@keyframes winner-pulse {
+  0% { background-color: #ffe082; }
+  50% { background-color: #ffd54f; }
+  100% { background-color: #ffe082; }
+}
+
+/* Instructions panel */
+#instructions {
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 5px;
+  font-size: 2em;
+  text-align: center;
+  width: calc(15vw * 3 + 10px); /* Match the width of the board */
+}
+
+/* Bottom bar styling */
+#bottombar {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  width: calc(15vw * 3 + 10px); /* Match the width of the board */
+}
+
+/* Styling for buttons */
+#bottombar button {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  font-size: 1.2em;
+  background-color: #2196F3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover effect for buttons */
+#bottombar button:hover {
+  background-color: #1976D2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .cell {
+    font-size: 15vw;
+    width: 30vw;
+    height: 30vw;
+  }
+
+  #instructions,
+  #bottombar {
+    width: calc(30vw * 3 + 10px); /* Adjust to match new cell size */
+  }
+
+  #instructions {
+    font-size: 1.5em;
+  }
+}
