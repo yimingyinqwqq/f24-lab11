@@ -83,7 +83,7 @@ body {
   width: calc(15vw * 3 + 10px); /* Match the width of the board */
 }
 
-/* Bottom bar styling */
+/* Styling for the bottom bar */
 #bottombar {
   display: flex;
   justify-content: center;
@@ -91,23 +91,40 @@ body {
   width: calc(15vw * 3 + 10px); /* Match the width of the board */
 }
 
-/* Styling for buttons */
+/* Base styling for buttons */
 #bottombar button {
   flex: 1;
-  padding: 10px;
+  padding: 15px;
   margin: 0 5px;
-  font-size: 1.2em;
-  background-color: #2196F3;
+  font-size: 1.5em;
+  font-weight: bold;
   color: #fff;
-  border: none;
-  border-radius: 5px;
+  background-color: #2196F3;
+  border: 2px solid #2196F3;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 /* Hover effect for buttons */
 #bottombar button:hover {
   background-color: #1976D2;
+  border-color: #1976D2;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+/* Active state for buttons */
+#bottombar button:active {
+  background-color: #1565C0;
+  border-color: #1565C0;
+}
+
+/* Disabled state for buttons */
+#bottombar button:disabled {
+  background-color: #B0BEC5;
+  border-color: #B0BEC5;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* Responsive adjustments */
