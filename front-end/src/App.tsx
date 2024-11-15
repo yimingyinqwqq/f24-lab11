@@ -65,7 +65,8 @@ class App extends React.Component<Props, GameState> {
     }
   }
 
-  undo = async () => {
+  undo = async (e: React.MouseEvent) => {
+    e.preventDefault();
     const response = await fetch('/undo');
     const json = await response.json();
     this.setState({ cells: json['cells'], currentPlayer: json['currentPlayer'], winner: json['winner'] });
