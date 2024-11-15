@@ -5,29 +5,44 @@ import java.util.Arrays;
 public class GameState {
 
     private final Cell[] cells;
+    private final String currentPlayer;
+    private final String winner;
 
-    private GameState(Cell[] cells) {
+    private GameState(Cell[] cells, String currentPlayer, String winner) {
         this.cells = cells;
+        this.currentPlayer = currentPlayer;
+        this.winner = winner;
     }
 
     public static GameState forGame(Game game) {
         Cell[] cells = getCells(game);
-        return new GameState(cells);
+        String currentPlayer = getCurrentPlayer(game);
+        String winner = getWinner(game);
+        return new GameState(cells, currentPlayer, winner);
     }
 
     public Cell[] getCells() {
         return this.cells;
     }
 
-    /**
-     * toString() of GameState will return the string representing
-     * the GameState in JSON format.
-     */
+    public String getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public String getWinner() {
+        return this.winner;
+    }
+
     @Override
     public String toString() {
         return """
-                { "cells": %s}
-                """.formatted(Arrays.toString(this.cells));
+                {
+                    "cells": %s,
+                    "currentPlayer": "%s",
+                    "winner": %s
+                }
+                """.formatted(Arrays.toString(this.cells), this.currentPlayer,
+                this.winner != null ? "\"" + this.winner + "\"" : null);
     }
 
     private static Cell[] getCells(Game game) {
@@ -49,6 +64,28 @@ public class GameState {
             }
         }
         return cells;
+    }
+
+    private static String getCurrentPlayer(Game game) {
+        Player currentPlayer = game.getPlayer();
+        if (currentPlayer == Player.PLAYER0) {
+            return "Player0";
+        } else if (currentPlayer == Player.PLAYER1) {
+            return "Player1";
+        } else {
+            return "";
+        }
+    }
+
+    private static String getWinner(Game game) {
+        Player winner = game.getWinner();
+        if (winner == Player.PLAYER0) {
+            return "Player0";
+        } else if (winner == Player.PLAYER1) {
+            return "Player1";
+        } else {
+            return null; // No winner yet
+        }
     }
 }
 
@@ -88,7 +125,7 @@ class Cell {
                     "text": "%s",
                     "playable": %b,
                     "x": %d,
-                    "y": %d 
+                    "y": %d
                 }
                 """.formatted(this.text, this.playable, this.x, this.y);
     }
